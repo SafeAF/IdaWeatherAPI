@@ -78,7 +78,7 @@ end
 
 # records = oiko_request(options, "temperature")
 
-# p records
+# p records[0][-1]
 
 
 
