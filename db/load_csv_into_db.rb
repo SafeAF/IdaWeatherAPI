@@ -21,8 +21,7 @@ def load_data_into_sql(file)
         lon.gsub!(/[^0-9\.]/, '')
         
         location = file.split('-')[0].split('/').last
-        p location
-        sleep 1
+
         Idaho.create(
             'location' => location,
             'year' => Time.parse(row[0]).year,
@@ -73,7 +72,7 @@ csv_files = Dir.glob(File.join(directory_path, '*.csv'))
 csv_files.each do |datafile|
     
   inserts = load_data_into_sql(datafile)
-  #p "#{inserts} records inserted."
+  p "#{inserts} records inserted."
 end
 
 
