@@ -20,7 +20,7 @@ def load_data_into_sql(file)
         lat.gsub!(/[^0-9\.]/, '')
         lon.gsub!(/[^0-9\.]/, '')
         
-        location = file.split('-')[0].split('/').last
+        location = file.split('-')[0]
 
         Idaho.create(
             'location' => location,
@@ -65,7 +65,8 @@ def load_data_into_sql(file)
   end
   
 
-directory_path = ARGV[0] || "./"
+#directory_path = ARGV[0] || "./"
+directory_path = "./"
 
 # Get a list of all CSV files in the directory
 csv_files = Dir.glob(File.join(directory_path, '*.csv'))
