@@ -21,7 +21,8 @@ def load_data_into_sql(file)
         lon.gsub!(/[^0-9\.]/, '')
         
         location = file.split('-')[0].split('/').last
-
+        p location
+        sleep 1
         Idaho.create(
             'location' => location,
             'year' => Time.parse(row[0]).year,
