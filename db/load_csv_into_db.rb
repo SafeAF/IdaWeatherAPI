@@ -21,6 +21,7 @@ def load_data_into_sql(file)
         lon.gsub!(/[^0-9\.]/, '')
         
         location = file.split('-')[0]
+        location = location.gsub(/^\.\//, '') 
 
         Idaho.create(
             'location' => location,
