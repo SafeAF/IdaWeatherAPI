@@ -14,7 +14,7 @@ ActiveRecord::Base.establish_connection(
 ActiveRecord::Schema.define do
 
 
-create_table "historicals", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+create_table "idahos", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.datetime "time_index"
     t.string "location"
     t.float "lat"
@@ -31,7 +31,7 @@ create_table "historicals", charset: "utf8mb4", collation: "utf8mb4_general_ci",
     t.float 'soil_temperature_level_4'
     t.float "surface_thermal_radiation"
     t.float "surface_solar_radiation"
-  #  t.float "direct_normal_solar_radiation"
+    t.float "direct_normal_solar_radiation"
     t.float "surface_diffuse_solar_radiation"
     t.float "relative_humidity"
     t.float "surface_pressure"
@@ -40,7 +40,7 @@ create_table "historicals", charset: "utf8mb4", collation: "utf8mb4_general_ci",
     t.float "total_precipitation"
     t.float "snowfall"
     t.float "snow_depth"
-   # t.float "snow_density"
+    t.float "snow_density"
     t.float "volumetric_soil_water_layer_1"
     t.float "volumetric_soil_water_layer_2"
     t.float "volumetric_soil_water_layer_3"

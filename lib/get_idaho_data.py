@@ -54,7 +54,7 @@ def make_request(latitude, longitude, start_date, end_date):
 
   
 
-    df.to_csv(str(latitude) + "-" + str(longitude) + "-" + start_date + "-" + end_date + "-full-params-idaho.csv")
+    df.to_csv(str(loc) + "-" + str(latitude) + "-" + str(longitude) + "-" + str(start_date) + "-" + str(end_date) + "-full-params-idaho.csv")
 
 
 
@@ -122,7 +122,7 @@ end_date = datetime.datetime.now()
 
 for lat,lon, loc in coordinates:
     print("getting: " + str(lat) + " " + str(lon) + " " + str(loc))
-   # make_request(lat, lon, start_date, end_date)
+    make_request(lat, lon, start_date, end_date)
     
 
 

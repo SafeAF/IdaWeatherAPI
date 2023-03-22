@@ -1,6 +1,6 @@
 require "active_record"
 
-class Historical < ActiveRecord::Base
+class Idaho < ActiveRecord::Base
    # validates :time_index, uniqueness: true
 end
    

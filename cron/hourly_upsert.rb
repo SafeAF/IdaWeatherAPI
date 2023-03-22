@@ -1,5 +1,5 @@
 require 'active_record'
-require_relative '../db/historical'
+require_relative '../db/idaho'
 require 'rest-client'
 require 'json'
 require 'date'
@@ -18,27 +18,27 @@ ActiveRecord::Base.establish_connection(
   ) 
   
   coordinates = [
-    [42.4634, -114.4975, "Joslin Field"],
-    [42.5992, -114.759, "Buhl"], 
+    [42.4634, -114.4975, "Twin Falls"],
+    [42.5992, -114.7591, "Buhl"], 
     [42.4679, -114.1523, 'Murtaugh'],
     [42.6351, -113.7199, "Burley"],
     [42.8751, -112.8793, "Pocatello"],
     [42.4436, -112.2156, "Idaho Falls"],
     [42.6556, -116.8516, "Caldwell"],
     [42.9180, -115.9554, "Mountain Home"],
-    [43.679833, -114.355867, "Ketchum"],
-    [42.976403, -114.688651, "Gooding"],
-    [42.275969, -113.895653, "Oakley"],
-    [43.879858, -116.531095, "Emmett"],
-    [45.975976, -116.123625, "Grangeville"],
-    [47.703796, -116.757602, "Cour d'Alene"],
-    [46.694995, -116.942834, "Moscow"],
-    [42.040929, -114.872226, "Mountains West of Jackpot"],
-    [42.136474, -114.293275, "Pike Mountain"],
-    [43.343642, -114.205501, "Gannet"],
-    [42.778824, -113.528056, "Minidoka"],
-    [44.042849, -116.937079, "Payette"],
-    [45.169153, -113.827914, "Salmon"]
+    [43.6798, -114.3558, "Ketchum"],
+    [42.9764, -114.6886, "Gooding"],
+    [42.2759, -113.8956, "Oakley"],
+    [43.8798, -116.5310, "Emmett"],
+    [45.9759, -116.1236, "Grangeville"],
+    [47.7037, -116.7576, "Cour d'Alene"],
+    [46.6949, -116.9428, "Moscow"],
+    [42.0409, -114.8722, "Mountains West of Jackpot"],
+    [42.1364, -114.2932, "Pike Mountain"],
+    [43.3436, -114.2055, "Gannet"],
+    [42.7788, -113.5280, "Minidoka"],
+    [44.0428, -116.9370, "Payette"],
+    [45.1691, -113.8279, "Salmon"]
 ]
 
 
@@ -124,7 +124,7 @@ def make_oiko_request(options = {}, param)
     o["day"] = o["time_index"].day
     o["hour"] = o["time_index"].hour
     # create db record from hash of observation created in the coordinates.each loop
-    h = Historical.create(o)
+    h = Idaho.create(o)
     h.save!
 end
 
@@ -142,6 +142,7 @@ coordinates.each { |coord|
     
     # build hash of current conditions
     params.each {|param|    
+        # grab the last element of the return AoA, which is the desired parameter
         current[param] = oiko_request(options, param)[0][-1]
     }
     

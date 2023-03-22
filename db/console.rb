@@ -1,5 +1,5 @@
 require 'active_record'
-require_relative 'historical'
+require_relative 'idaho'
 
 ActiveRecord::Base.establish_connection(
   adapter: 'mysql2',
@@ -10,3 +10,5 @@ ActiveRecord::Base.establish_connection(
   port: 3306,
   database: 'weather',
 )
+
+
