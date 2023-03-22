@@ -64,7 +64,7 @@ def load_data_into_sql(file)
   end
   
 
-directory_path = './'
+directory_path = ARGV[0] || "./"
 
 # Get a list of all CSV files in the directory
 csv_files = Dir.glob(File.join(directory_path, '*.csv'))
