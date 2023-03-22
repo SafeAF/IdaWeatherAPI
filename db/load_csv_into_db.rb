@@ -12,11 +12,6 @@ ActiveRecord::Base.establish_connection(
   database: 'weather',
 )
 
-
-datafile = 'Twin Falls-42.4634--114.4975-2023-01-01-2023-03-22 06:41:51.114289-full-params-idaho.csv'
-
-require 'pp'
-
 def load_data_into_sql(file)
     counter = 0
     table = CSV.foreach(file) do |row|
@@ -68,6 +63,14 @@ def load_data_into_sql(file)
     return counter
   end
   
+
+directory_path = './'
+
+# Get a list of all CSV files in the directory
+csv_files = Dir.glob(File.join(directory_path, '*.csv'))
+csv_files.each do |datafile|
   inserts = load_data_into_sql(datafile)
   p "#{inserts} records inserted."
-  
+end
+
+

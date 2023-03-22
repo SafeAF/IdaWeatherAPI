@@ -114,7 +114,7 @@ coordinates = [
 
 
 
-start_date = '2023-01-01'
+start_date = '1950-01-01'
 end_date = datetime.datetime.now()
 
 

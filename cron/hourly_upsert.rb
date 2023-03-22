@@ -82,6 +82,15 @@ params = [
 
 # request to api not returning all fields listed in parameters!
 # just use one parameter then at a time, has to be a string
+
+# Try this
+
+# Set the parameters for the POST request
+
+    # params = {
+    #     year: 2022,
+    #     locations: ['New York', 'San Francisco'].to_json
+    # }
 def make_oiko_request(options = {}, param)
 
     foo = {"params" =>

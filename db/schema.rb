@@ -17,8 +17,8 @@ ActiveRecord::Schema.define do
 create_table "idahos", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.datetime "time_index"
     t.string "location"
-    t.float "lat"
-    t.float "lon"
+    t.string "lat"
+    t.string "lon"
     t.integer "year"
     t.integer "month"
     t.integer "day"
@@ -52,4 +52,12 @@ create_table "idahos", charset: "utf8mb4", collation: "utf8mb4_general_ci", forc
     t.float "100m_wind_direction"
   end
 
+  add_index :idahos, :lat
+  add_index :idahos, :lon
+  add_index :idahos, :location
+  add_index :idahos, :year
+  add_index :idahos, :month
+  add_index :idahos, :day
+  add_index :idahos, :hour
+  
 end
