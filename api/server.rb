@@ -28,8 +28,10 @@ p "#{Time.now} - Loading dataframes"
 locations = Idaho.distinct.pluck(:location)
 p "#{locations.count} locations found: #{locations.inspect}"
 
-@CACHE = {}
+location = locations.first
 
+cache = {}
+cache[location] = Rover::DataFrame.new(Idaho.where(location: location))
 
 # locations.each {|location|
 #     #frames = Rover::DataFrame.new(Idaho.where(location: location))
@@ -53,9 +55,15 @@ get '/load' do
     
      location = params[:location]
 
-    foo =  Rover::DataFrame.new(Idaho.where(location: location))
+
+
     location
     #JSON.generate [location: location, records: @CACHE[location].count]
+end
+
+get '/see' do
+    JSON.generate(cache["Buhl"].count)
+    
 end
 
 # get '/historics/:location' do
