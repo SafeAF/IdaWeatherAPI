@@ -7,8 +7,8 @@ require 'rover-df'
 require 'json'
 
 require_relative '../db/idaho'
-# require_relative './lib/statistics'
-# require_relative './lib/historics'
+require_relative './lib/statistics'
+require_relative './lib/historics'
 
 ActiveRecord::Base.establish_connection(
     adapter: 'mysql2',
@@ -28,7 +28,8 @@ p "#{Time.now} - Loading dataframes"
 locations = Idaho.distinct.pluck(:location)
 p "#{locations.count} locations found: #{locations.inspect}"
 
-location = locations.first
+
+location = "Twin Falls"
 
 cache = {}
 cache[location] = Rover::DataFrame.new(Idaho.where(location: location))
@@ -54,22 +55,22 @@ end
 get '/load' do
     
      location = params[:location]
-
-
-
-    location
+     cache[location] = Rover::DataFrame.new(Idaho.where(location: location))
+    JSON.generate(cache[location].count)
     #JSON.generate [location: location, records: @CACHE[location].count]
 end
 
 get '/see' do
-    JSON.generate(cache["Buhl"].count)
+    location = params[:location]
+    JSON.generate(cache[location].count)
     
 end
 
-# get '/historics/:location' do
-#   historics = calculate_historics(CACHE)
-#   JSON.generate historics
-# end
+get '/historics' do
+  location = params[:location]
+  historics = calculate_historics(cache[location])
+  JSON.generate historics
+end
 
 ### Example script to hit this endpoint
 # require 'httparty'

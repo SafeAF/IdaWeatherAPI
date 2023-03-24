@@ -32,5 +32,5 @@ historic_high = historical_daily_high(frames,
 historic_hour = historical_average_for_hour(frames,
     Time.new.month, Time.new.day, Time.new.hour, "temperature")
 {historic_low: historic_low, historic_high: historic_high,
-    historic_hour: historic_hour}
+    historic_average: historic_average}
 end
