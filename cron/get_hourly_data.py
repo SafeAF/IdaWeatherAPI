@@ -58,35 +58,7 @@ def make_request(latitude, longitude, start_date, end_date):
 
     return(df)
 
-# latitude = 42.4634
-# longitude = -114.4975
 
-
-# coordinates = [
-#     (42.4634, -114.4975), # joslin field
-#     (42.5992, -114.759), # buhl
-#     (42.4679, -114.1523), #murtaugh
-#     (42.6351, -113.7199), #burley
-#     (42.8751, -112.8793), #pocatello
-#     (42.4436, -112.2156), #idaho falls
-#     (42.6556, -116.8516), #boise/caldwell
-#     (42.9180, -115.9554), #mountain home
-#     (43.679833, -114.355867), #ketchum
-#     (42.976403, -114.688651), #gooding
-#     (42.275969, -113.895653), #oakley
-#     (43.879858, -116.531095), #emmett
-#     (45.975976, -116.123625), #grangeville
-#     (47.703796, -116.757602), #cour d'alene
-#     (46.694995, -116.942834), # moscow 
-#     (42.040929, -114.872226), #mountains west of  jackpot
-#     (42.136474, -114.293275), #mountains east of jackpot (pike mountain area)
-#     (43.343642, -114.205501), # gannet
-#    (42.778824, -113.528056), #minidoka
-#    (44.042849, -116.937079), #payette
-#    (45.169153, -113.827914), #salmon
- 
-
-# ]
 
 coordinates = [
     [42.4634, -114.4975, "Twin Falls"],

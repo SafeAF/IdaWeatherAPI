@@ -35,7 +35,7 @@ p "#{locations.count} locations found: #{locations.inspect}"
 cache = {}
 
 location = "Twin Falls"
-cache[location] = Rover::DataFrame.new(Idaho.where(location: location))
+#cache[location] = Rover::DataFrame.new(Idaho.where(location: location))
 
 
 
@@ -121,7 +121,8 @@ end
 
 post '/coordinates' do
   graph = JSON.parse(params["graph"])
-  coords = prepare_coordinates(cache["Twin Falls"], graph)
+  frames = Rover::DataFrame.new(Idaho.where(location: graph["location"]))
+  coords = prepare_coordinates(frames, graph)
   #coords = [{x: 1, y: 3}, {x: 2, y: 5}, {x: 3, y:7}]
         
   JSON.generate coords
