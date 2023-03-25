@@ -121,10 +121,14 @@ end
 
 post '/coordinates' do
   graph = JSON.parse(params["graph"])
-  frames = Rover::DataFrame.new(Idaho.where(location: graph["location"]))
-  coords = prepare_coordinates(frames, graph)
-  #coords = [{x: 1, y: 3}, {x: 2, y: 5}, {x: 3, y:7}]
-        
+  # make sure location is in the database
+  if Idaho.distinct.pluck(:location).include?(graph["location"])
+    frames = Rover::DataFrame.new(Idaho.where(location: graph["location"]))
+    coords = prepare_coordinates(frames, graph)
+  else # return some default
+    coords = [{x: 1, y: 3}, {x: 2, y: 5}, {x: 3, y:7}]
+  end
+  
   JSON.generate coords
 end
 
