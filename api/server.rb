@@ -31,8 +31,8 @@ p "#{locations.count} locations found: #{locations.inspect}"
 
 location = "Twin Falls"
 
-# cache = {}
-# cache[location] = Rover::DataFrame.new(Idaho.where(location: location))
+cache = {}
+cache[location] = Rover::DataFrame.new(Idaho.where(location: location))
 
 # locations.each {|location|
 #     #frames = Rover::DataFrame.new(Idaho.where(location: location))
@@ -47,14 +47,6 @@ location = "Twin Falls"
 get '/' do
   "Farmers Almanac API v1.0"
 end
-
-get '/coordinates' do
-    graph = JSON.parse(params[:graph])
-    p graph
-    graph
-end
-
-
 
 get '/locations' do
     JSON.generate locations
@@ -79,6 +71,78 @@ get '/historics' do
   historics = calculate_historics(cache[location])
   JSON.generate historics
 end
+
+
+
+def prepare_coordinates(frames, graph)
+  coords = []
+  p graph.inspect
+
+
+  if graph["range"]  
+    if graph["category"] == "Range_across_years"
+      coords = yearly_range(frames, graph["start_year"],
+         graph["end_year"], graph["dependent_var"], graph["function"])
+
+    elsif graph.category == "Compare_one_month_across_years"
+      coords = compare_months_across_years(frames,
+        graph["start_year"],
+        graph["end_year"], 
+         graph["month"], graph["dependent_var"], graph["function"])
+    end
+
+  else
+    if graph.category == "Monthly_for_one_year"
+      coords = year_by_month_function(frames, graph["year"], 
+        graph["dependent_var"], graph["function"])
+    #     coords = [{x: 1, y: 3}, {x: 2, y: 5}, {x: 3, y:7}]
+        
+    # if graph.category == "Monthly_average_for_one_year"
+    #   coords = monthly_average(frames, graph.year, graph.dependent_var)
+    
+    
+    elsif graph.category == "Hourly_for_one_month_in_a_single_year"
+      coords = hourly_one_month_data(frames, graph["year"],
+        graph["month"], graph["dependent_var"])
+      
+    else
+      # bad category
+    end
+
+
+  end
+  coords
+end
+
+
+post '/coordinates' do
+  graph = JSON.parse(params["graph"])
+  coords = prepare_coordinates(cache["Twin Falls"], graph)
+  #coords = [{x: 1, y: 3}, {x: 2, y: 5}, {x: 3, y:7}]
+        
+  JSON.generate coords
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Example script to hit this endpoint
 # require 'httparty'
