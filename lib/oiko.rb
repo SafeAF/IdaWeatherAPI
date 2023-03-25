@@ -10,23 +10,6 @@ API_KEY = 'c588435337e444c0996a94f746a2036b'
 
 
 
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
 ## USAGE ##
 # options = {start: Time.now - 3600,
 # end: Time.now, lat: 42.4632, lon: -114.4975}

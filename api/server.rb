@@ -31,8 +31,8 @@ p "#{locations.count} locations found: #{locations.inspect}"
 
 location = "Twin Falls"
 
-cache = {}
-cache[location] = Rover::DataFrame.new(Idaho.where(location: location))
+# cache = {}
+# cache[location] = Rover::DataFrame.new(Idaho.where(location: location))
 
 # locations.each {|location|
 #     #frames = Rover::DataFrame.new(Idaho.where(location: location))
@@ -47,6 +47,14 @@ cache[location] = Rover::DataFrame.new(Idaho.where(location: location))
 get '/' do
   "Farmers Almanac API v1.0"
 end
+
+get '/coordinates' do
+    graph = JSON.parse(params[:graph])
+    p graph
+    graph
+end
+
+
 
 get '/locations' do
     JSON.generate locations

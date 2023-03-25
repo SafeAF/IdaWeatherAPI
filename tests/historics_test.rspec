@@ -1,0 +1,49 @@
+require 'rover-df'
+
+RSpec.describe do
+  describe "#historical_daily_low" do
+    let(:data) { RoverDF.new([{"month": 1, "day": 1, "temperature": -10},
+                              {"month": 1, "day": 1, "temperature": -5},
+                              {"month": 1, "day": 2, "temperature": 0},
+                              {"month": 1, "day": 2, "temperature": 2}]) }
+
+    it "returns the daily low temperature for a given month and day" do
+      expect(historical_daily_low(data, 1, 1, "temperature")).to eq(-10)
+      expect(historical_daily_low(data, 1, 2, "temperature")).to eq(0)
+    end
+  end
+
+  describe "#historical_daily_high" do
+    let(:data) { RoverDF.new([{"month": 1, "day": 1, "temperature": -10},
+                              {"month": 1, "day": 1, "temperature": -5},
+                              {"month": 1, "day": 2, "temperature": 0},
+                              {"month": 1, "day": 2, "temperature": 2}]) }
+
+    it "returns the daily high temperature for a given month and day" do
+      expect(historical_daily_high(data, 1, 1, "temperature")).to eq(-5)
+      expect(historical_daily_high(data, 1, 2, "temperature")).to eq(2)
+    end
+  end
+
+  describe "#historical_average_for_hour" do
+    let(:data) { RoverDF.new([{"month": 1, "day": 1, "hour": 0, "temperature": -10},
+                              {"month": 1, "day": 1, "hour": 1, "temperature": -5},
+                              {"month": 1, "day": 1, "hour": 2, "temperature": 0},
+                              {"month": 1, "day": 1, "hour": 3, "temperature": 2}]) }
+
+    it "returns the average temperature for a given hour of a given day in a given month" do
+      expect(historical_average_for_hour(data, 1, 1, 0, "temperature")).to eq(-10)
+      expect(historical_average_for_hour(data, 1, 1, 1, "temperature")).to eq(-5)
+      expect(historical_average_for_hour(data, 1, 1, 2, "temperature")).to eq(0)
+      expect(historical_average_for_hour(data, 1, 1, 3, "temperature")).to eq(2)
+    end
+  end
+
+  describe "#historical_average_for_day" do
+    let(:data) { RoverDF.new([{"month": 1, "day": 1, "temperature": -10},
+                              {"month": 1, "day": 1, "temperature": -5},
+                              {"month": 1, "day": 2, "temperature": 0},
+                              {"month": 1, "day": 2, "temperature": 2}]) }
+
+    it "returns the average temperature for a given day in a given month" do
+      expect(historical_average
