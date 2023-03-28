@@ -83,7 +83,6 @@ def prepare_coordinates(frames, graph)
   p graph.inspect
 
 
-  if graph["range"]  
     if graph["category"] == "Range_across_years"
       coords = yearly_range(frames, graph["start_year"],
          graph["end_year"], graph["dependent_var"], graph["function"])
@@ -93,10 +92,10 @@ def prepare_coordinates(frames, graph)
         graph["start_year"],
         graph["end_year"], 
          graph["month"], graph["dependent_var"], graph["function"])
-    end
+ 
 
-  else
-    if graph["category"] == "Monthly_for_one_year"
+
+    elsif graph["category"] == "Monthly_for_one_year"
       coords = year_by_month_function(frames, graph["year"], 
         graph["dependent_var"], graph["function"])
     #     coords = [{x: 1, y: 3}, {x: 2, y: 5}, {x: 3, y:7}]
@@ -113,8 +112,6 @@ def prepare_coordinates(frames, graph)
       # bad category
     end
 
-
-  end
   coords
 end
 
