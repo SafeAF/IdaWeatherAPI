@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'mysql2'
+#gem 'mysql2'
 gem 'activerecord'
 gem 'json'
 gem 'nokogiri'
+gem 'sqlite3'
 
 gem 'rest-client'
 gem 'sinatra'
