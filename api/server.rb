@@ -22,7 +22,7 @@ require_relative './lib/historics'
 
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',
-  database: 'idaweather_prod.db'
+  database: '../../idaweather_prod.db'
 )
 
 
@@ -127,6 +127,17 @@ end
 post '/coordinates' do
   graph = JSON.parse(params["graph"])
   # make sure location is in the database
+  # allowed_functions = %w[min max mean]
+
+  # # Check if the provided function is one of the allowed values
+  # if allowed_functions.include?(graph['function'])
+  #   # Call the method using send
+  #   result = some_object.send(graph['function'])
+  # else
+  #   # Raise an error or handle the invalid input appropriately
+  #   raise ArgumentError, "Invalid function: #{graph['function']}. Allowed values are #{allowed_functions.join(', ')}."
+  # end
+
   if Idaho.distinct.pluck(:location).include?(graph["location"])
     frames = Rover::DataFrame.new(Idaho.where(location: graph["location"]))
     coords = prepare_coordinates(frames, graph)
