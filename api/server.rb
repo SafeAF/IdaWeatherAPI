@@ -26,32 +26,10 @@ ActiveRecord::Base.establish_connection(
 )
 
 
-
-start = Time.now
-p "#{Time.now} - Loading dataframes"
-
 # extract unique locations from db, make them keys in a hash of dataframes
 #MyModel.pluck(:location).uniq
 locations = Idaho.distinct.pluck(:location)
 p "#{locations.count} locations found: #{locations.inspect}"
-
-
-
-
-
-cache = {}
-
-location = "Twin Falls"
-#cache[location] = Rover::DataFrame.new(Idaho.where(location: location))
-
-
-
-# locations.each {|location|
-#     cache[location] = Rover::DataFrame.new(Idaho.where(location: location)
-#                                         .where(year: 2022..))
-#     p "#{Time.now} - #{cache[location].count} records for location #{location} loaded in #{(start - Time.now).abs} seconds"
-# }
-
 
 
 # ######### Index #############
@@ -68,7 +46,6 @@ get '/load' do
      location = params[:location]
      cache[location] = Rover::DataFrame.new(Idaho.where(location: location))
     JSON.generate(cache[location].count)
-    #JSON.generate [location: location, records: @CACHE[location].count]
 end
 
 get '/see' do
@@ -121,10 +98,7 @@ def prepare_coordinates(frames, graph)
       if valid_year
         coords = year_by_month_function(frames, graph["year"], 
           graph["dependent_var"], graph["function"])
-    #     coords = [{x: 1, y: 3}, {x: 2, y: 5}, {x: 3, y:7}]
         
-    # if graph.category == "Monthly_average_for_one_year"
-    #   coords = monthly_average(frames, graph.year, graph.dependent_var)
       else; coords = [{x: 1, y: 3}, {x: 2, y: 5}, {x: 3, y:7}]
       end
     
@@ -150,17 +124,9 @@ end
 
 post '/coordinates' do
   graph = JSON.parse(params["graph"])
-  # make sure location is in the database
+
   allowed_functions = %w[min max mean]
 
-  # # Check if the provided function is one of the allowed values
-  # if allowed_functions.include?(graph['function'])
-  #   # Call the method using send
-  #   result = some_object.send(graph['function'])
-  # else
-  #   # Raise an error or handle the invalid input appropriately
-  #   raise ArgumentError, "Invalid function: #{graph['function']}. Allowed values are #{allowed_functions.join(', ')}."
-  # end
   if allowed_functions.include?(graph['function'])
     if Idaho.distinct.pluck(:location).include?(graph["location"])
       frames = Rover::DataFrame.new(Idaho.where(location: graph["location"]))
